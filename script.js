@@ -1,4 +1,5 @@
 
+
 const input = document.getElementById('input');
 
 function clc(value) {
@@ -38,8 +39,12 @@ function fnc(value){
     if(value==="F2"){
 
         document.getElementById("kvadr").style.display="grid"
+        
+    }
+}
 
-        const a = parseFloat(document.getElementById('a').value);
+function solve(){
+    const a = parseFloat(document.getElementById('a').value);
         const b = parseFloat(document.getElementById('b').value);
         const c = parseFloat(document.getElementById('c').value);
 
@@ -50,10 +55,28 @@ function fnc(value){
         }
     
         if (isNaN(a) || isNaN(b) || isNaN(c)) {
-            input.value = "Zadejte platné hodnoty"; // Kontrola, jestli jsou hodnoty platné
+            input.value = "Zadejte platné hodnoty";
             return;
         }
     
+        if (a === 0) {
+            input.value = "Hodnota 'a' nemůže být nula"; 
+            return;
+        }
+    
+        const discriminant = b * b - 4 * a * c;
+    
+        if (discriminant > 0) {
+            const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+            const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+            input.value = `Kořeny: ${root1.toFixed(2)}, ${root2.toFixed(2)}`;
+        } else if (discriminant === 0) {
+            const root = -b / (2 * a);
+            input.value = `Kořen: ${root.toFixed(2)}`; 
+        } else {
+            input.value = "Žádné reálné kořeny"; 
+        }
+}
         if (a === 0) {
             input.value = "Hodnota 'a' nemůže být nula"; // Kontrola, jestli je a != 0
             return;
